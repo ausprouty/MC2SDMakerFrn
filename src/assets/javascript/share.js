@@ -20,9 +20,9 @@ async function shareLesson(lesson, url){
     let site_url = 'https://app.mc2.online' + url
     console.log(site_url)
     await Share.share({
-    title: 'Here is the link to MC2',
+    title: 'Voici le lien vers MC2',
     text: lesson,
     url: site_url,
-    dialogTitle: 'Share this page',
+    dialogTitle: 'Partagez cette page',
     });
 }
