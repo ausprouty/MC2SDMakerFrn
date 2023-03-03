@@ -3,9 +3,14 @@ import SQLiteService from '@/services/SQLiteService.js'
 import { useFindSummaries, useFindCollapsible, usePopUp} from "@/assets/javascript/revealText.js"
 import { useRevealMedia } from "@/assets/javascript/revealMedia.js"
 import { useShare} from "@/assets/javascript/share.js"
+import VueImageZoomer from '@/components/VueImageZoomer.vue'
+import '@/assets/styles/vueImageZoomer.css';
 
 
 export default {
+  components: {
+    VueImageZoomer
+  },
    methods:{
     async addNote(noteid){
        var noteText = document.getElementById(noteid).value
@@ -43,11 +48,7 @@ export default {
     useFindSummaries()
     useFindCollapsible()
     useRevealMedia()
-    let notes = await SQLiteService.notes(this.$route.name)
-    for (var i = 0; i< notes.length; i++){
-      var noteid = notes[i].noteid
-      document.getElementById(noteid).value =notes[i].note
-    }
+    await SQLiteService.notes(this.$route.name)
   },
 }
 </script>
@@ -60,7 +61,14 @@ export default {
 <div class="page_content ltr">
 <h1>Période 4: former les leaders pour les nouveaux centres de mouvement (2e voyage missionnaire à partir d’Antioche)</h1>
 <div id="showVideoOptions"></div>
-  <h1><img alt="" src="@/assets/images/eng/multiply3/Trip2.png" /></h1>
+  <h1>   
+    <div class="zoom-image">
+    <vue-image-zoomer
+    regular="/images/zoom/fra/multiply3/Trip2.png" 
+    zoom="/images/zoom/fra/multiply3/Trip2.png" :zoom-amount="3" img-class="img-fluid" alt="Trip2">
+    <img src="@/assets/images/fra/multiply3/Trip2.png" img-class="img-fluid" />
+    </vue-image-zoomer>
+    </div></h1>
 
 <p>(2e voyage missionnaire &agrave; partir d&rsquo;Antioche) [49 - 51 ap. J.-C.]</p>
 

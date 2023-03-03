@@ -3,9 +3,14 @@ import SQLiteService from '@/services/SQLiteService.js'
 import { useFindSummaries, useFindCollapsible, usePopUp} from "@/assets/javascript/revealText.js"
 import { useRevealMedia } from "@/assets/javascript/revealMedia.js"
 import { useShare} from "@/assets/javascript/share.js"
+import VueImageZoomer from '@/components/VueImageZoomer.vue'
+import '@/assets/styles/vueImageZoomer.css';
 
 
 export default {
+  components: {
+    VueImageZoomer
+  },
    methods:{
     async addNote(noteid){
        var noteText = document.getElementById(noteid).value
@@ -43,11 +48,7 @@ export default {
     useFindSummaries()
     useFindCollapsible()
     useRevealMedia()
-    let notes = await SQLiteService.notes(this.$route.name)
-    for (var i = 0; i< notes.length; i++){
-      var noteid = notes[i].noteid
-      document.getElementById(noteid).value =notes[i].note
-    }
+    await SQLiteService.notes(this.$route.name)
   },
 }
 </script>
@@ -60,7 +61,14 @@ export default {
 <div class="page_content ltr">
 <h1>Période 3&4 Formation au ministere et campagne elargie</h1>
 <div id="showVideoOptions"></div>
-  <p><span class="zoom"><img alt="Stage of Ministry" class="lesson_image" src="@/assets/images/fra/multiply2/period34.png" /></span></p>
+  <p>   
+    <div class="zoom-image">
+    <vue-image-zoomer
+    regular="/images/zoom/fra/multiply2/period34.png" 
+    zoom="/images/zoom/fra/multiply2/period34.png" :zoom-amount="3" img-class="img-fluid" alt="Stage of Ministry">
+    <img src="@/assets/images/fra/multiply2/period34.png" img-class="img-fluid" />
+    </vue-image-zoomer>
+    </div></p>
 
 <p>&nbsp;VERS FIN 27 AP.J.-C &ndash; FIN 28 AP.J.-C.&nbsp;</p>
 

@@ -3,9 +3,14 @@ import SQLiteService from '@/services/SQLiteService.js'
 import { useFindSummaries, useFindCollapsible, usePopUp} from "@/assets/javascript/revealText.js"
 import { useRevealMedia } from "@/assets/javascript/revealMedia.js"
 import { useShare} from "@/assets/javascript/share.js"
+import VueImageZoomer from '@/components/VueImageZoomer.vue'
+import '@/assets/styles/vueImageZoomer.css';
 
 
 export default {
+  components: {
+    VueImageZoomer
+  },
    methods:{
     async addNote(noteid){
        var noteText = document.getElementById(noteid).value
@@ -43,11 +48,7 @@ export default {
     useFindSummaries()
     useFindCollapsible()
     useRevealMedia()
-    let notes = await SQLiteService.notes(this.$route.name)
-    for (var i = 0; i< notes.length; i++){
-      var noteid = notes[i].noteid
-      document.getElementById(noteid).value =notes[i].note
-    }
+    await SQLiteService.notes(this.$route.name)
   },
 }
 </script>
@@ -60,7 +61,14 @@ export default {
 <div class="page_content ltr">
 <h1>Période 3: Extension à de nouveaux territoires (1er voyage missionnaire à partir d’Antioche)</h1>
 <div id="showVideoOptions"></div>
-  <p><img alt="" src="@/assets/images/eng/multiply3/Trip1.png" />&nbsp;(1er voyage missionnaire &agrave; partir d&rsquo;Antioche) [46-48 ap. J.-C.]</p>
+  <p>   
+    <div class="zoom-image">
+    <vue-image-zoomer
+    regular="/images/zoom/fra/multiply3/Trip1.png" 
+    zoom="/images/zoom/fra/multiply3/Trip1.png" :zoom-amount="3" img-class="img-fluid" alt="Trip1">
+    <img src="@/assets/images/fra/multiply3/Trip1.png" img-class="img-fluid" />
+    </vue-image-zoomer>
+    </div>&nbsp;(1er voyage missionnaire &agrave; partir d&rsquo;Antioche) [46-48 ap. J.-C.]</p>
 
 <h2>R&eacute;sum&eacute;&nbsp;</h2>
 

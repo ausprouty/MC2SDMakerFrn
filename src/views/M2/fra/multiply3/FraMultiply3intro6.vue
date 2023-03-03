@@ -3,9 +3,14 @@ import SQLiteService from '@/services/SQLiteService.js'
 import { useFindSummaries, useFindCollapsible, usePopUp} from "@/assets/javascript/revealText.js"
 import { useRevealMedia } from "@/assets/javascript/revealMedia.js"
 import { useShare} from "@/assets/javascript/share.js"
+import VueImageZoomer from '@/components/VueImageZoomer.vue'
+import '@/assets/styles/vueImageZoomer.css';
 
 
 export default {
+  components: {
+    VueImageZoomer
+  },
    methods:{
     async addNote(noteid){
        var noteText = document.getElementById(noteid).value
@@ -43,11 +48,7 @@ export default {
     useFindSummaries()
     useFindCollapsible()
     useRevealMedia()
-    let notes = await SQLiteService.notes(this.$route.name)
-    for (var i = 0; i< notes.length; i++){
-      var noteid = notes[i].noteid
-      document.getElementById(noteid).value =notes[i].note
-    }
+    await SQLiteService.notes(this.$route.name)
   },
 }
 </script>
@@ -60,7 +61,14 @@ export default {
 <div class="page_content ltr">
 <h1>Période 6: Représenter le mouvement de Jésus</h1>
 <div id="showVideoOptions"></div>
-  <h2><img alt="" src="@/assets/images/eng/multiply3/Trip4.png" />R&eacute;sum&eacute; de la p&eacute;riode</h2>
+  <h2>   
+    <div class="zoom-image">
+    <vue-image-zoomer
+    regular="/images/zoom/fra/multiply3/Trip4.png" 
+    zoom="/images/zoom/fra/multiply3/Trip4.png" :zoom-amount="3" img-class="img-fluid" alt="">
+    <img src="@/assets/images/fra/multiply3/Trip4.png" img-class="img-fluid" />
+    </vue-image-zoomer>
+    </div>R&eacute;sum&eacute; de la p&eacute;riode</h2>
 
 <p>Apr&egrave;s avoir pos&eacute; les fondations de 6-7 centres de mouvement &agrave; travers la partie orientale de l&rsquo;empire Romain, le r&ocirc;le de Paul maintenant est de saisir les occasions pour d&eacute;fendre la foi. Cette p&eacute;riode est marqu&eacute;e par de longs voyages, la prison, les circonstances dangereuses et les d&eacute;fenses l&eacute;gales devant les autorit&eacute;s gouvernementales en Jud&eacute;e et &agrave; Rome.</p>
 
